@@ -1,12 +1,12 @@
 version: v1.0
-name: Build & test
+name: Deploy to staging
 agent:
   machine:
     type: e1-standard-2
     os_image: ubuntu1804
 
 blocks:
-  - name: "Build"
+  - name: "Deploy"
     task:
       jobs:
       - name: Docker build
@@ -15,15 +15,3 @@ blocks:
           - ls -1
           - echo "Docker build..."
           - echo "done"
-
-  - name: "Test"
-    task:
-      jobs:
-      - name: Smoke
-        commands:
-          - checkout
-          - echo "make smoke"
-
-promotions:
-  - name: Deploy to staging
-    pipeline_file: stg.yml
